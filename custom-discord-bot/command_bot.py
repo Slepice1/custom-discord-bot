@@ -20,9 +20,6 @@ class CommandBot():
 
     def on_message(self, msg):
         self.stats_.set_members(msg.server.members)
-
-        if msg.channel.is_private: return
-        if not self._is_in_our_group(msg): return
         if not msg.content.startswith(self.config['trigger']): return
 
         line = msg.content[len(self.config['trigger']):].lower()
@@ -40,10 +37,6 @@ class CommandBot():
 
     def on_ready(self):
         print('Command bot running!')
-
-    def _is_in_our_group(self, msg):
-        return msg.server.id == self.config["server_id"] and \
-            msg.channel.name in self.config["channels"]
 
     @command
     def bodik(self, msg, arg):
