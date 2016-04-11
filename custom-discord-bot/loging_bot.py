@@ -21,6 +21,7 @@ class LogingBot():
 
     def __del__(self, *useless):
         self.conn.commit()
+        print("ok")
         sys.exit()
 
     def commit_if_enough(self):

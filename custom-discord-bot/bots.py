@@ -47,6 +47,7 @@ class Bots(Client):
 
     @asyncio.coroutine
     def on_ready(self):
+        print(self.token)
         for bot in self.bots:
             func = getattr(bot, "on_ready", None)
             if callable(func):

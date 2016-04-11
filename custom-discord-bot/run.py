@@ -21,8 +21,7 @@ swear_bot = SwearBot(stats, config)
 loging_bot = LogingBot(config)
 bots = Bots([command_bot, swear_bot, loging_bot], config)
 
-with open("login.data", 'r') as f:
-    email, password = f.read().strip().split("\n")
+with open("login2.data", 'r') as f:
+    data = f.read().strip().split("\n")
 
-
-bots.run(email, password)
+bots.run(*data)
