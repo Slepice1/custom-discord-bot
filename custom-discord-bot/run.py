@@ -8,7 +8,8 @@ from bots import Bots
 from stats import Stats
 
 config = {"trigger":"!",
-          "images_locations": ("../images/{}.png", "../images/{}.gif"),
+          "images_location": "../images/",
+          "images_types": ("{}.png", "{}.gif"),
           "stats_location": "/home/slepice1/data.data",
           "db_location": "../messages.db",
           "server_id": "132560448775127041",
@@ -21,7 +22,7 @@ swear_bot = SwearBot(stats, config)
 loging_bot = LogingBot(config)
 bots = Bots([command_bot, swear_bot, loging_bot], config)
 
-with open("login2.data", 'r') as f:
+with open("login.data", 'r') as f:
     data = f.read().strip().split("\n")
 
 bots.run(*data)
