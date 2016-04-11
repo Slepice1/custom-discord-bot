@@ -12,7 +12,8 @@ config = {"trigger":"!",
           "stats_location": "/home/slepice1/data.data",
           "db_location": "../messages.db",
           "server_id": "132560448775127041",
-          "channels": ("lol", "test")}
+          "channels": ("lol", "test"),
+          "message_to_db_count": 10}
 
 stats = Stats(config)
 command_bot = CommandBot(stats, config)
