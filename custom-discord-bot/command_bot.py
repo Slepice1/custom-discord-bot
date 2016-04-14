@@ -2,6 +2,7 @@
 
 import os
 import asyncio
+import datetime
 from stats import Stats, MemberException
 
 def command(func):
@@ -14,6 +15,7 @@ class CommandBot():
         self.config = config
         self.stats_ = stats_
         self.commands = []
+        self.started_date = datetime.datetime.now()
         self.HELP_FORMAT = self.config['trigger'] + "{} - {}"
         for k, v in CommandBot.__dict__.items():
             if hasattr(v, 'command'):
@@ -45,6 +47,7 @@ class CommandBot():
         if arg is not None:
             if msg.author.name.lower() != arg:
                 self.stats_[arg]["bodik"] += 1
+                return [("send_message",(msg.channel, "Dal si {} bodík :eggplant:".format(arg)))]
             else:
                 return [("send_message",(msg.channel, "Sám si dát bodík nemůžeš :frowning:"))]
         else:
@@ -76,7 +79,14 @@ class CommandBot():
         return [("send_message",(msg.channel, "Tato reakce neexistuje :frowning:"))]
 
     @command
+    def status(self, msg, arg):
+        """jak dlouho už jedu bomby"""
+        runtime = datetime.datetime.now() - self.started_date
+        return [("send_message",(msg.channel, "```Running " + str(runtime)[:-7] + "```")),
+                ("delete_message", (msg,))]
+    @command
     def help(self, msg, arg):
         """co asi lol xd"""
         help = [self.HELP_FORMAT.format(comm ,getattr(self, comm).__doc__) for comm in self.commands]
-        return [("send_message",(msg.channel, "```" + "\n".join(help) + "```"))]
+        return [("send_message",(msg.channel, "```" + "\n".join(help) + "```")),
+               ("delete_message", (msg,))]
